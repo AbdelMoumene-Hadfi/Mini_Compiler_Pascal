@@ -1,6 +1,32 @@
 #include "analy_lex_sem_func.h"
 #include "analy_lex_sem_dec.h"
 
+void push() {
+  Sym_Arr_Struct *current = Head_Arr_Symb;
+  if(Head_Arr_Symb == NULL) {
+    Head_Arr_Symb->Data = Token_Cour ;
+    Head_Arr_Symb->next = NULL ;
+ }
+  else {
+    while(current->next != NULL) {
+      current=current->next;
+    }
+    current->next=(Sym_Arr_Struct*)malloc(sizeof(Sym_Arr_Struct));
+    current->next->Data = (Sym_Struct*)malloc(sizeof(Sym_Struct));
+    current->next->Data->WORD = (char*)malloc(21);
+    current->next->Data->TOKEN = Token_Cour->TOKEN ;
+    memcpy(current->next->Data->WORD,Token_Cour->WORD,sizeof(Token_Cour->WORD));
+    current->next->next = NULL ;
+ }
+}
+void show() {
+  Sym_Arr_Struct *current = Head_Arr_Symb;
+  while(current->next != NULL) {
+    printf("%s ----> %s\n",ARR_TOK[current->next->Data->TOKEN].TOKENS,current->next->Data->WORD);
+    current=current->next;
+  }
+
+}
 void Next_Car() {
   Car_Cour = fgetc(file);
 }
@@ -200,14 +226,16 @@ void Next_Sym() {
 }
 int analy_lex_sem_dec(char *filename) {
   file=fopen(filename,"a+");
+  Head_Arr_Symb = (Sym_Arr_Struct*)malloc(sizeof(Sym_Arr_Struct));
   Token_Cour = (Sym_Struct*)malloc(sizeof(Sym_Struct));
   Token_Cour->WORD = (char*)malloc(21);
   Next_Car();
   while(Car_Cour != EOF) {
     Next_Sym();
     if(Token_Cour->TOKEN != NULL_TOKEN) {
-      printf("%s ----> %s\n",ARR_TOK[Token_Cour->TOKEN].TOKENS,Token_Cour->WORD);
+      push();
     }
   }
+  show();
   return 0;
 }

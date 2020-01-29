@@ -27,7 +27,6 @@ void Test_Symbole(TOKENS token,ERREURS erreur) {
     Erreur(erreur);
   }
 }
-Test_Symbole(_TOKEN,_TOKEN_ERREUR);
 
 void PROGRAM(void) {
   Test_Symbole(PROGRAM_TOKEN,PROGRAM_TOKEN_ERREUR);

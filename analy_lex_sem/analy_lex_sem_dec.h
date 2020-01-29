@@ -8,6 +8,11 @@ typedef struct {
   TOKENS TOKEN ; char* WORD ;
 } Sym_Struct ;
 Sym_Struct *Token_Cour;
+typedef struct sym_arr{
+  Sym_Struct *Data ;
+  struct sym_arr *next;
+} Sym_Arr_Struct ;
+Sym_Arr_Struct *Head_Arr_Symb;
 //
 typedef struct {
   TOKENS TOKEN ; char TOKENS[30] ;

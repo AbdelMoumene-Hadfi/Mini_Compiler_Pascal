@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
+void push();
+void show();
 void Next_Car();
 void Next_Word();
 void Next_Number();
